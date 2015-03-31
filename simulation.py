@@ -6,20 +6,17 @@ from Enum import *
 
 if __name__ == '__main__':
 
-    #them = Player(60, 99, 99, 99, 99, 52, 99)
-    #print them
+    # Create basic opponent
+    them = Player(99, 99, 99, 99, 99, 52, 99, ident='Opponent')
+    them.set_attack_style(ATTACK_STYLES.ACCURATE)
+    them.set_attack_type(ATTACK_TYPES.SLASH)
+    them.set_defence_bonus(crush=0)
 
-    me = Player(99, 99, 45, 99, 99, 52, 99, ident='Nightly Glow')
-
-    # Set up attack styles
+    # Create my player
+    me = Player(99, 99, 99, 99, 99, 52, 99, ident='Nightly Glow')
     me.set_attack_style(ATTACK_STYLES.ACCURATE)
-    me.set_attack_type(ATTACK_TYPES.SLASH)
+    me.set_attack_type(ATTACK_TYPES.CRUSH)
+    me.set_attack_bonus(slash=100, stab=50, crush=0)
 
-    # Set up prayers, potions, etc
-    me.set_prayer_on(PRAYERS.INCREDIBLE_REFLEXES)
-    me.set_prayer_on(PRAYERS.ULTIMATE_STRENGTH)
-    me.set_prayer_on(PRAYERS.STEEL_SKIN)
-
-    me.do_attack_roll()
-
-    print me
+    chance = me.get_hit_chance(them)
+    print 'Hit chance: ', chance
