@@ -7,8 +7,8 @@ from Enum import *
 
 class Player:
 
-    def __init__(self, attack, strength, defence, 
-            ranged, magic, prayer, hitpoints, ident=None):
+    def __init__(self, attack=1, strength=1, defence=1, 
+            ranged=1, magic=1, prayer=1, hitpoints=1, ident=None):
         """Parameters are: attack, strength, defence, ranged, 
         magic, prayer, hitpoints"""
         self.attack = attack
@@ -68,7 +68,9 @@ class Player:
         elif attack_roll > defence_roll:
             return 1 - (defence_roll + 1) / (2 * attack_roll)
         else:
-            raise Exception('TODO:decide what to do in equal rolls')
+            # Equal rolls
+            return (attack_roll - 1) / (2 * defence_roll)
+
 
     def _get_attack_roll(self):
         if self.attack_type in [ATTACK_TYPES.RANGED]:
@@ -122,7 +124,6 @@ class Player:
             
             # Apply item bonuses that defend from opponent's attack style
             effective_defence += self.defence_bonus[opponent.attack_type]
-
             
             effective_defence = math.floor(effective_defence)
             max_roll = effective_defence * (1 + (self.defence_bonus[opponent.attack_style]/64))
