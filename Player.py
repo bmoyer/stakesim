@@ -3,6 +3,7 @@
 from __future__ import division
 import collections
 import math
+import random
 from Enum import *
 
 class Player:
@@ -59,6 +60,14 @@ class Player:
     def set_strength_bonus(self, bonus):
         self.strength_bonus = bonus
 
+    def do_attack(self, opponent):
+        hit_prob = random.random()
+        damage = 0
+        if hit_prob > self.get_hit_chance(opponent):
+            # Attack succeeds, now calculate the damage
+            damage = random.randint(1, self.get_max_hit())
+        opponent.hitpoints -= damage
+
     def get_hit_chance(self, opponent):
         attack_roll = self._get_attack_roll()
         defence_roll = opponent._get_defence_roll(self)
@@ -71,6 +80,13 @@ class Player:
             # Equal rolls
             return (attack_roll - 1) / (2 * defence_roll)
 
+    def get_max_hit(self):
+        effective_strength = self.strength
+        if PRAYERS.ULTIMATE_STRENGTH in self.active_prayers:
+            effective_strength *= 1.15
+        
+        max_hit = math.floor((13 + effective_strength + self.strength_bonus / 8 + effective_strength * self.strength_bonus / 64)/10)
+        return max_hit
 
     def _get_attack_roll(self):
         if self.attack_type in [ATTACK_TYPES.RANGED]:
