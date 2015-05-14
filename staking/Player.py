@@ -4,7 +4,7 @@ from __future__ import division
 import collections
 import math
 import random
-from Enum import *
+from .Enum import *
 
 class Player:
 

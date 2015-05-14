@@ -1,19 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: iso-8859-15 -*-
 
-from Player import Player
-from Enum import *
+from staking.Player import Player
+from staking.Enum import *
 import random
 
 def setup_players():
     # Create my player
-    me = Player(attack=99, strength=99, defence=99, ranged=99, magic=99, prayer=99, hitpoints=99, ident='you')
+    me = Player(attack=99, strength=99, defence=99, ranged=99, magic=99, 
+            prayer=99, hitpoints=99, ident='You')
     me.set_attack_style(ATTACK_STYLES.ACCURATE)
     me.set_attack_type(ATTACK_TYPES.CRUSH)
     me.set_attack_bonus(slash=0, stab=0, crush=0)
 
     # Create basic opponent
-    them = Player(attack=99, strength=99, defence=99, ranged=99, magic=99, prayer=99, hitpoints=99, ident='them')
+    them = Player(attack=99, strength=99, defence=99, ranged=99, magic=99, 
+            prayer=99, hitpoints=99, ident='Xx_420_minerguy_xX')
     them.set_attack_style(ATTACK_STYLES.AGGRESSIVE)
     them.set_attack_type(ATTACK_TYPES.SLASH)
     them.set_defence_bonus(crush=0, stab=0, slash=0)
@@ -38,10 +40,10 @@ def run_simulation(player1, player2):
             player2.do_attack(player1)
     
     if(player1.hitpoints <= 0):
-        print player1.ident, ' won!'
+        print('{p} won!'.format(p=player1.ident))
         return 1
     else:
-        print player2.ident, ' won!'
+        print('{p} won!'.format(p=player2.ident))
         return 0
 
 if __name__ == '__main__':
